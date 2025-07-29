@@ -1,1 +1,53 @@
-services: {}
+version: '3.8'
+
+services:
+  #database ui
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: ambev.developer_evaluation.database_ui
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: ev@luAt10n
+    ports:
+      - "5433:80"
+    depends_on:
+      - ambev.developerevaluation.database
+    restart: unless-stopped
+    networks:
+      - developerStore_network
+  
+  ambev.developerevaluation.webapi:
+    depends_on:
+      - ambev.developerevaluation.database
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - developerStore_network
+  
+  ambev.developerevaluation.database:
+    ports:
+      - "5432:5432"
+    networks:
+      - developerStore_network
+
+  ambev.developerevaluation.nosql:
+    ports:
+      - "27017:27017"
+    networks:
+      - developerStore_network
+  
+  ambev.developerevaluation.cache:
+    environment:
+      - REDIS_PASSWORD=ev@luAt10n
+    depends_on:
+      - ambev.developerevaluation.webapi
+    ports:
+        - "6379:6379"
+    networks:
+      - developerStore_network
+
+networks:
+  developerStore_network:
+    driver: bridge
+    name: developerStore_custom_network
