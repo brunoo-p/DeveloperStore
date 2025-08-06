@@ -1,5 +1,5 @@
-using Ambev.DeveloperEvaluation.Domain.Models.ProductAggregate;
 using Ambev.DeveloperEvaluation.Domain.Models.Products;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories;
