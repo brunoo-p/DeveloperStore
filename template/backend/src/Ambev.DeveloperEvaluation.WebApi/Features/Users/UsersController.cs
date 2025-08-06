@@ -56,7 +56,7 @@ public class UsersController : BaseController
         {
             Success = true,
             Message = "User created successfully",
-            Data = _mapper.Map<CreateUserResponse>(response)
+            Content = _mapper.Map<CreateUserResponse>(response)
         });
     }
 
@@ -86,7 +86,7 @@ public class UsersController : BaseController
         {
             Success = true,
             Message = "User retrieved successfully",
-            Data = _mapper.Map<GetUserResponse>(response)
+            Content = _mapper.Map<GetUserResponse>(response)
         });
     }
 

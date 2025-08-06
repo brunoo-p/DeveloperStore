@@ -53,7 +53,7 @@ public class AuthController : BaseController
         {
             Success = true,
             Message = "User authenticated successfully",
-            Data = _mapper.Map<AuthenticateUserResponse>(response)
+            Content = _mapper.Map<AuthenticateUserResponse>(response)
         });
     }
 }
