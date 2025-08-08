@@ -15,8 +15,6 @@ public class CancelSaleCommandHandler(ISaleRepository saleRepository, IMediator 
 
         await saleRepository.UpdateAsync(sale, cancellationToken);
 
-        // await mediator.Publish(new SaleCancelledEvent(sale), cancellationToken);
-
         return true;
     }
 }

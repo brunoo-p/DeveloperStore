@@ -58,7 +58,8 @@ public class SalesController(IMediator mediator, IMapper mapper) : BaseControlle
         if (!validationResult.IsValid)
             return BadRequest(validationResult.Errors);
 
-        var command = mapper.Map<UpdateSaleCommand>(request) with { Id = id };
+        var command = mapper.Map<UpdateSaleCommand>(request);
+        command.Id = id;
 
         var response = await mediator.Send(command, cancellationToken);
 

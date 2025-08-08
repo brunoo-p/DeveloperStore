@@ -3,17 +3,14 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.Commands.UpdateSale;
 
-public sealed record UpdateSaleCommand(
-    Guid Id,
-    string SaleNumber,
-    decimal TotalAmount,
-    bool IsCancelled,
-    Guid? CustomerId,
-    Guid? BranchId,
-    IEnumerable<SaleItemVo> Items
-) : IRequest<UpdateSaleResult>
+public class UpdateSaleCommand : IRequest<UpdateSaleResult>
 {
-    public UpdateSaleCommand() : this(default, string.Empty, 0, false, null, null, [])
-    {
-    }
+
+    public Guid Id { get; set; }
+    public string SaleNumber { get; set; } = string.Empty;
+    public decimal TotalAmount { get; set; } = decimal.Zero;
+    public bool IsCancelled { get; set; } = false;
+    public Guid CustomerId { get; set; }
+    public Guid BranchId { get; set; }
+    public IEnumerable<SaleItemVo> Items { get; set; } = [];
 }

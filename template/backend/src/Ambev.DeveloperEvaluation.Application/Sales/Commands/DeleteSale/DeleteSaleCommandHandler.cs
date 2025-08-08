@@ -22,8 +22,6 @@ public class DeleteSaleCommandHandler(ISaleRepository saleRepository, IMediator 
         var deletedSale = await saleRepository.DeleteAsync(sale.Id, cancellationToken);
         if (!deletedSale) throw new Exception($"Sale with Id {command.Id} not deleted.");
 
-        // await mediator.Publish(new SaleDeletedEvent(sale.SaleNumber), cancellationToken);
-
         return true;
     }
 }

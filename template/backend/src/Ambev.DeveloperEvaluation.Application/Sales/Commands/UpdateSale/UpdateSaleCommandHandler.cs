@@ -28,8 +28,6 @@ public class UpdateSaleCommandHandler(ISaleRepository saleRepository, IMapper ma
 
         var updatedSale = await saleRepository.UpdateAsync(sale, cancellationToken);
 
-        // await mediator.Publish(new SaleUpdatedEvent(updatedSale), cancellationToken);
-
         return mapper.Map<UpdateSaleResult>(updatedSale);
     }
 }

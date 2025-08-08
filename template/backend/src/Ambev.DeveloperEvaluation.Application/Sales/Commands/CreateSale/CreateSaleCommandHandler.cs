@@ -17,15 +17,35 @@ public class CreateSaleCommandHandler(ISaleRepository saleRepository, IMapper ma
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
 
-        var sale = mapper.Map<Sale>(command);
+        int saleNumberLasSequence = await GetNextSaleNumberSequenceAsync(
+            command.BranchId,
+            saleRepository
+        );
 
+        var sale = mapper.Map<Sale>(command);
+        sale.GenerateSaleNumberSequence(saleNumberLasSequence);
         sale.Calculate();
 
         var createdSale = await saleRepository.CreateAsync(sale, cancellationToken);
         var result = mapper.Map<CreateSaleResult>(createdSale);
 
-        // await mediator.Publish(new SaleCreatedEvent(createdSale), cancellationToken);
-
         return result;
+    }
+
+    private static async Task<int> GetNextSaleNumberSequenceAsync( Guid branchId, ISaleRepository saleRepository )
+    {
+        var lastSaleNumber = await saleRepository.GetLastSequenceAsync(branchId, DateTime.UtcNow.Year);
+        if ( lastSaleNumber is null ) return 0;
+
+        int lastNumber = ExtractNumber(lastSaleNumber);
+        return ++lastNumber;
+    }
+
+    private static int ExtractNumber( string saleNumber )
+    {
+        var parts = saleNumber?.Split('-');
+        if ( parts?.Length == 4 && int.TryParse(parts[3], out int number) )
+            return number;
+        return 0;
     }
 }
