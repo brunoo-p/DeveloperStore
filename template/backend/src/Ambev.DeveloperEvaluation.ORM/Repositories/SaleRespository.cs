@@ -59,14 +59,35 @@ public class SaleRepository : ISaleRepository
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
+    /// <summary>
+    ///     Retrieves a collecition of sale
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The sales if found, empty otherwise</returns>
     public async Task<Sale[]?> GetAsync( CancellationToken cancellationToken = default )
     {
         var sales = await _context.Sales
             .Include(sale => sale.Items)
-            .OrderBy(s => s.SaleNumber)
+            .OrderBy(s => s.CreatedAt)
             .ToArrayAsync(cancellationToken);
 
         return sales;
+    }
+
+    /// <summary>
+    ///     Retrieves a last sequence of sale number identifier
+    /// </summary>
+    /// <param name="branchId">The unique identifier of the branch</param>
+    /// <param name="year">The current year </param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The sale if found, null otherwise</returns>
+    public async Task<string?> GetLastSequenceAsync( Guid branchId, int year, CancellationToken cancellationToken = default )
+    {
+        return await _context.Sales
+            .Where(sale => sale.BranchId == branchId && sale.CreatedAt.Year == year)
+            .OrderByDescending(sale => sale.CreatedAt)
+            .Select(sale => sale.SaleNumber)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 
     /// <summary>

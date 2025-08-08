@@ -4,14 +4,12 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.Commands.CreateSale;
 
-public sealed record CreateSaleCommand(
-    string SaleNumber,
-    decimal TotalAmount,
-    bool IsCancelled,
-    Guid? CustomerId,
-    Guid? BranchId,
-    IEnumerable<SaleItemVo> Items) : IRequest<CreateSaleResult>
+public class CreateSaleCommand : IRequest<CreateSaleResult>
 {
+    public Guid CustomerId { get; set; }
+    public Guid BranchId { get; set; }
+    public IEnumerable<SaleItemVo> Items { get; set; } = [];
+    
     public ValidationResultDetail Validate()
     {
         var validator = new CreateSaleCommandValidator();

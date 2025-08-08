@@ -18,8 +18,6 @@ public class CancelItemCommandHandler(ISaleRepository saleRepository, IMediator 
 
         await saleRepository.UpdateAsync(sale, cancellationToken);
 
-        // await mediator.Publish(new ItemCancelledEvent(sale, item), cancellationToken);
-
         return true;
     }
 }

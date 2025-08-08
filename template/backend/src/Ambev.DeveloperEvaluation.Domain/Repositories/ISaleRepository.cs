@@ -33,6 +33,8 @@ public interface ISaleRepository
 
     Task<Sale[]?> GetAsync(CancellationToken cancellationToken = default);
 
+    Task<string?> GetLastSequenceAsync( Guid branchId, int year, CancellationToken cancellationToken = default );
+
     /// <summary>
     ///     Deletes a sale from the repository
     /// </summary>

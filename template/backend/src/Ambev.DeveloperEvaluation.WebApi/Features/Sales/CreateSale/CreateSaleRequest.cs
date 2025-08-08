@@ -2,10 +2,9 @@
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 
-public sealed record CreateSaleRequest(
-    string SaleNumber,
-    decimal TotalAmount,
-    bool IsCancelled,
-    Guid? CustomerId,
-    Guid? BranchId,
-    IEnumerable<SaleItemVo> Items);
+public class CreateSaleRequest {
+
+    public Guid CustomerId { get; set; }
+    public Guid BranchId { get; set; }
+    public IEnumerable<SaleItemVo> Items { get; set; } = [];
+}

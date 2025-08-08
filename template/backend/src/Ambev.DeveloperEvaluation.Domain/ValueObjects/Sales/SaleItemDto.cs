@@ -1,14 +1,6 @@
 ﻿namespace Ambev.DeveloperEvaluation.Domain.ValueObjects.Sales;
 
 public sealed record SaleItemVo(
-    Guid Id,
-    int Quantity,
+    Guid ProductId,
     decimal UnitPrice,
-    decimal Discount,
-    decimal TotalItemAmount,
-    Guid ProductId)
-{
-    public SaleItemVo() : this(Guid.Empty, 0, 0, 0, 0, Guid.Empty)
-    {
-    }
-}
+    int Quantity);
