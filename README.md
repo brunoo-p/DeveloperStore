@@ -16,7 +16,7 @@
 # Starting 🚀
 <h4>Clone repository</h4>
 ```shel
-git clone https://github.com/bunoo-p/RrevCompany.git
+git clone https://github.com/brunoo-p/DeveloperStore.git
 ```
 
 ## Building 🔧⚙
